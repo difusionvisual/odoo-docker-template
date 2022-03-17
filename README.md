@@ -23,9 +23,9 @@ cp copy.docker-compose.yaml docker-compose.yaml
 4. Editar parámetros de .env
 ~~~
 Ejemplo:
-ODOO_VERSION=12
-WEB_HOST=odoo_12
-WEB_PORT=12069
+ODOO_VERSION=13
+WEB_HOST=odoo_13
+WEB_PORT=13069
 ~~~
 5. Opcional: Editar docker-compose.yaml, esto siempre y cuando se requiera añadir nuevos servicios o modificar parámetros.
 6. Ejecutar docker-compose
