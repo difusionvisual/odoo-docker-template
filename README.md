@@ -29,7 +29,7 @@ WEB_PORT=12069
 ~~~
 5. Opcional: Editar docker-compose.yaml, esto siempre y cuando se requiera añadir nuevos servicios o modificar parámetros.
 6. Ejecutar docker-compose
-7. Si se desea añadir una ruta local aun directorio usar el siguiente formato en el archivo docker-compose.yaml 
+7. Si se desea añadir una ruta a un directorio local especifico, usar el siguiente formato en el archivo docker-compose.yaml 
  `- /Ruta/carpeta/local/en/mi/pc:/mnt/extra-addons-customize`
 ~~~
 docker-compose up -d
