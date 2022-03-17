@@ -1,0 +1,63 @@
+version: '3'
+services:
+  odoo:
+    container_name: ${WEB_HOST}
+    image: ${WEB_IMAGE_NAME}:${WEB_IMAGE_TAG}
+    environment:
+      - HOST=${DB_HOST}
+      - USER=${DB_USER}
+      - PASSWORD=${DB_PASSWD}
+    build:
+      context: ./
+      args:
+        ODOO_VERSION: ${ODOO_VERSION}
+    depends_on:
+      - db
+    ports:
+      - "${ODOO_VERSION}069:8069"
+    volumes:
+      - odoo-filestore:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ./addons-customize:/mnt/extra-addons-customize
+    entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf --limit-memory-soft=0 --limit-time-real-cron=9999999 --limit-time-real=9999999 --workers=0 --dev=reload,qweb,werkzeug,xml"
+  
+  db:
+    container_name: ${DB_HOST}
+    image: ${DB_IMAGE}:${DB_TAG}
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - POSTGRES_USER=${DB_USER}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data/pgdata
+
+  pgweb:
+    image: sosedoff/pgweb
+    networks: *public
+    ports:
+      - "127.0.0.1:${WEB_PORT}081:8081"
+    environment:
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWPRD}@db:5432/devel?sslmode=disable
+    depends_on:
+      - db 
+
+  wdb:
+    image: kozea/wdb
+    networks: *public
+    ports:
+      - "127.0.0.1:${ODOO_VERSION}984:1984"
+    init: true
+
+networks:
+  default:
+    internal: true
+  public:
+
+volumes:
+  odoo-filestore:
+  postgres-db:
+  
