@@ -15,17 +15,20 @@ git clone https://github.com/difusionvisual/odoo-docker-template.git
 ~~~
 cd odoo-docker-template
 ~~~
-3. Crear archivo .env y docker-compose.yaml
+3. Crear archivo .env, docker-compose.yaml y odoo.conf
 ~~~
 cp copy.env .env
 cp copy.docker-compose.yaml docker-compose.yaml
+cp /config/copy.odoo.conf /config/odoo.conf
 ~~~
-4. Editar parámetros de .env
+4. Editar parámetros de .env y odoo.conf
 ~~~
 Ejemplo:
-ODOO_VERSION=12
-WEB_HOST=odoo_12
-WEB_PORT=12069
+ODOO_VERSION=13
+WEB_HOST=odoo_13
+WEB_PORT=13069
+
+admin_passwd = admin
 ~~~
 5. Opcional: Editar docker-compose.yaml, esto siempre y cuando se requiera añadir nuevos servicios o modificar parámetros.
 6. Ejecutar docker-compose

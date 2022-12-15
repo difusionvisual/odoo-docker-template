@@ -52,11 +52,6 @@ services:
       - "127.0.0.1:${ODOO_VERSION}984:1984"
     init: true
 
-networks:
-  default:
-    internal: true
-  public:
-
 volumes:
   odoo-filestore:
   postgres-db:
